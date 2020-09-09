@@ -21,7 +21,7 @@ type Query struct {
 func NewQuery(id uuid.UUID, aggregate uuid.UUID, query interface{}) *Query {
 	return &Query{
 		id:        id,
-		query:   query,
+		query:     query,
 		aggregate: aggregate,
 	}
 }

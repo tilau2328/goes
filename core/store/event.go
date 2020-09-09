@@ -1,6 +1,7 @@
-package core
+package store
 
 import (
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/tilau2328/goes/core/event"
 )
@@ -27,7 +28,10 @@ func (s *Store) Store(events []event.IEvent) error {
 		} else {
 			s.events[id] = append(s.events[id], e)
 		}
-		_ = s.bus.Handle(e)
+		_, err := s.bus.Handle(e)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 	}
 	return nil
 }

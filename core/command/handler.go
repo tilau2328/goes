@@ -1,7 +1,7 @@
 package command
 
 type ICommandHandler interface {
-	Handle(ICommand) error
+	Handle(ICommand) (interface{}, error)
 }
 
 type Handler struct {

@@ -28,11 +28,14 @@ func TestBus_RegisterHandler(t *testing.T) {
 	expectedCommand := TestCommand{}
 	expectedAggregateId := uuid.New()
 	command := NewCommand(expectedId, expectedAggregateId, expectedCommand)
-	err := bus.Handle(command)
+	result, err := bus.Handle(command)
 	if err != nil {
 		t.Error(err)
 	}
+	if result != ExpectedHandlerResult {
+		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)
+	}
 	if handler.command != command {
-		t.Errorf("expected command to have be %T but was %T times", command, handler.command)
+		t.Errorf("expected command to be %T but was %T times", command, handler.command)
 	}
 }

@@ -6,7 +6,7 @@ type ICommandBus interface {
 	RegisterHandler(interface{}, ICommandHandler)
 	Handlers() map[string]ICommandHandler
 	Handler(string) ICommandHandler
-	Handle(ICommand) error
+	Handle(ICommand) (interface{}, error)
 }
 
 type Bus struct {
@@ -29,6 +29,6 @@ func (b *Bus) Handlers() map[string]ICommandHandler {
 	return b.handlers
 }
 
-func (b *Bus) Handle(command ICommand) error {
+func (b *Bus) Handle(command ICommand) (interface{}, error) {
 	return b.Handler(command.Type()).Handle(command)
 }
