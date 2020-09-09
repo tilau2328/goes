@@ -6,7 +6,7 @@ type IEventBus interface {
 	RegisterHandler(interface{}, IEventHandler)
 	Handlers() map[string]IEventHandler
 	Handler(string) IEventHandler
-	Handle(IEvent) error
+	Handle(IEvent) (interface{}, error)
 }
 
 type Bus struct {
@@ -29,6 +29,6 @@ func (b *Bus) Handlers() map[string]IEventHandler {
 	return b.handlers
 }
 
-func (b *Bus) Handle(event IEvent) error {
+func (b *Bus) Handle(event IEvent) (interface{}, error) {
 	return b.Handler(event.Type()).Handle(event)
 }

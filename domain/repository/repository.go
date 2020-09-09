@@ -3,10 +3,10 @@ package repository
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"goes"
-	"goes/core"
-	"goes/core/event"
-	"goes/domain/aggregate"
+	"github.com/tilau2328/goes"
+	"github.com/tilau2328/goes/core/event"
+	"github.com/tilau2328/goes/core/store"
+	"github.com/tilau2328/goes/domain/aggregate"
 )
 
 type IRepository interface {
@@ -15,12 +15,12 @@ type IRepository interface {
 }
 
 type Repository struct {
-	store   core.IStore
+	store   store.IStore
 	bus     event.IEventBus
 	factory aggregate.IAggregateFactory
 }
 
-func NewRepository(store core.IStore, bus event.IEventBus, factory aggregate.IAggregateFactory) *Repository {
+func NewRepository(store store.IStore, bus event.IEventBus, factory aggregate.IAggregateFactory) *Repository {
 	return &Repository{store, bus, factory}
 }
 

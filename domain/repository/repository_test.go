@@ -2,24 +2,26 @@ package repository
 
 import (
 	"github.com/google/uuid"
-	"goes/core"
-	"goes/core/event"
-	"goes/domain/aggregate"
+	"github.com/tilau2328/goes/core/event"
+	"github.com/tilau2328/goes/core/store"
+	"github.com/tilau2328/goes/domain/aggregate"
 	"testing"
 )
+
+var ExpectedHandlerResult = "test"
 
 type TestEvent struct{}
 type TestEventHandler struct{ event event.IEvent }
 
-func (t *TestEventHandler) Handle(event event.IEvent) error {
- 	t.event = event
-	return nil
+func (t *TestEventHandler) Handle(event event.IEvent) (interface{}, error) {
+	t.event = event
+	return ExpectedHandlerResult, nil
 }
 func testFunc(event.IEvent, bool) {}
 
 func TestLoad(t *testing.T) {
 	bus := event.NewBus()
-	store := core.NewStore(bus)
+	s := store.NewStore(bus)
 	factory := aggregate.NewFactory()
 	err := factory.Register((*aggregate.Aggregate)(nil), func(id uuid.UUID) aggregate.IAggregate {
 		return aggregate.NewAggregate(id)
@@ -28,7 +30,7 @@ func TestLoad(t *testing.T) {
 		t.Error(err)
 	}
 	aggregateId := uuid.New()
-	repository := NewRepository(store, bus, factory)
+	repository := NewRepository(s, bus, factory)
 	a, err := repository.Load("aggregate.Aggregate", aggregateId)
 	if err != nil {
 		t.Error(err)
@@ -40,7 +42,7 @@ func TestLoad(t *testing.T) {
 
 func TestSave(t *testing.T) {
 	bus := event.NewBus()
-	store := core.NewStore(bus)
+	s := store.NewStore(bus)
 	factory := aggregate.NewFactory()
 	err := factory.Register((*aggregate.Aggregate)(nil), func(id uuid.UUID) aggregate.IAggregate {
 		return aggregate.NewAggregate(id)
@@ -55,12 +57,12 @@ func TestSave(t *testing.T) {
 	a.RegisterHandler((*TestEvent)(nil), testFunc)
 	e := event.NewEvent(uuid.New(), aggregateId, TestEvent{})
 	a.TrackChange(e)
-	repository := NewRepository(store, bus, factory)
+	repository := NewRepository(s, bus, factory)
 	err = repository.Save(a)
 	if err != nil {
 		t.Error(err)
 	}
-	events := store.Load(aggregateId)
+	events := s.Load(aggregateId)
 	if events[0] != e {
 		t.Errorf("expected the only store event to be %T but was %T", e, events[0])
 	}

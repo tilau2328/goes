@@ -6,7 +6,7 @@ type IQueryBus interface {
 	RegisterHandler(interface{}, IQueryHandler)
 	Handlers() map[string]IQueryHandler
 	Handler(string) IQueryHandler
-	Handle(IQuery) error
+	Handle(IQuery) (interface{}, error)
 }
 
 type Bus struct {
@@ -29,6 +29,6 @@ func (b *Bus) Handlers() map[string]IQueryHandler {
 	return b.handlers
 }
 
-func (b *Bus) Handle(query IQuery) error {
+func (b *Bus) Handle(query IQuery) (interface{}, error) {
 	return b.Handler(query.Type()).Handle(query)
 }

@@ -28,11 +28,14 @@ func TestBus_RegisterHandler(t *testing.T) {
 	expectedQuery := TestQuery{}
 	expectedAggregateId := uuid.New()
 	query := NewQuery(expectedId, expectedAggregateId, expectedQuery)
-	err := bus.Handle(query)
+	result, err := bus.Handle(query)
 	if err != nil {
 		t.Error(err)
 	}
 	if handler.query != query {
 		t.Errorf("expected query to have be %T but was %T times", query, handler.query)
+	}
+	if result != ExpectedHandlerResult {
+		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)
 	}
 }

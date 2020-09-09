@@ -1,7 +1,7 @@
 package event
 
 type IEventHandler interface {
-	Handle(IEvent) error
+	Handle(IEvent) (interface{}, error)
 }
 
 type Handler struct {

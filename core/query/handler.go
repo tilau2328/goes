@@ -1,7 +1,7 @@
 package query
 
 type IQueryHandler interface {
-	Handle(IQuery) error
+	Handle(IQuery) (interface{}, error)
 }
 type Handler struct {
 	next IQueryHandler
