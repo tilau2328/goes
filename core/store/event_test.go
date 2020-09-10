@@ -14,7 +14,7 @@ func TestLoad(t *testing.T) {
 	event1 := event.NewEvent(uuid.New(), aggregateId1, TestEvent{})
 	event2 := event.NewEvent(uuid.New(), aggregateId1, TestEvent{})
 	event3 := event.NewEvent(uuid.New(), aggregateId2, TestEvent{})
-	store := &Store{events: map[string][]event.IEvent{
+	store := &EventStore{events: map[string][]event.IEvent{
 		aggregateId1.String(): {event1, event2},
 		aggregateId2.String(): {event3}},
 	}
@@ -43,7 +43,7 @@ func TestStore(t *testing.T) {
 	aggregateId := uuid.New()
 	event1 := event.NewEvent(uuid.New(), aggregateId, TestEvent{})
 	event2 := event.NewEvent(uuid.New(), aggregateId, TestEvent{})
-	store := &Store{events: map[string][]event.IEvent{aggregateId.String(): {event1}}}
+	store := &EventStore{events: map[string][]event.IEvent{aggregateId.String(): {event1}}}
 	err := store.Store([]event.IEvent{event2})
 	if err != nil {
 		t.Error(err)

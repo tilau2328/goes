@@ -15,12 +15,12 @@ type IRepository interface {
 }
 
 type Repository struct {
-	store   store.IStore
+	store   store.IEventStore
 	bus     event.IEventBus
 	factory aggregate.IAggregateFactory
 }
 
-func NewRepository(store store.IStore, bus event.IEventBus, factory aggregate.IAggregateFactory) *Repository {
+func NewRepository(store store.IEventStore, bus event.IEventBus, factory aggregate.IAggregateFactory) *Repository {
 	return &Repository{store, bus, factory}
 }
 
