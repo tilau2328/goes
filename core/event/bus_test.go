@@ -33,7 +33,7 @@ func TestBus_RegisterHandler(t *testing.T) {
 		t.Error(err)
 	}
 	if handler.event != event {
-		t.Errorf("expected event to have be %T but was %T times", event, handler.event)
+		t.Errorf("expected Event to have be %T but was %T times", event, handler.event)
 	}
 	if result != ExpectedHandlerResult {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)

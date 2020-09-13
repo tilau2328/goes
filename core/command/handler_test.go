@@ -30,7 +30,7 @@ func TestChainedHandleCommand(t *testing.T) {
 		t.Error(err)
 	}
 	if handler.command != command {
-		t.Errorf("expected command to be %T but was %T", command, handler.command)
+		t.Errorf("expected Command to be %T but was %T", command, handler.command)
 	}
 	if result != ExpectedHandlerResult {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)

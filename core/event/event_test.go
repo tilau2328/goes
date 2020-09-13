@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-type TestEvent struct { test string }
+type TestEvent struct{ test string }
 
 func TestNewEvent(t *testing.T) {
-	const expectedEventType = "command.TestEvent"
+	const expectedEventType = "event.TestEvent"
 	expectedMessage := TestEvent{"test"}
 	expectedAggregateId := uuid.New()
 	expectedId := uuid.New()
@@ -21,7 +21,7 @@ func TestNewEvent(t *testing.T) {
 
 	id := result.Id()
 	if id != expectedId {
-		t.Errorf("expected id to be %s but is %s", expectedAggregateId, id)
+		t.Errorf("expected EventId to be %s but is %s", expectedAggregateId, id)
 	}
 
 	commandType := result.Type()

@@ -13,31 +13,27 @@ type ICommand interface {
 }
 
 type Command struct {
-	aggregate uuid.UUID
-	id        uuid.UUID
-	command   interface{}
+	Aggregate uuid.UUID   `json:"aggregateId"`
+	CommandId uuid.UUID   `json:"commandId"`
+	Command   interface{} `json:"message"`
 }
 
 func NewCommand(id uuid.UUID, aggregate uuid.UUID, command interface{}) *Command {
-	return &Command{
-		id:        id,
-		command:   command,
-		aggregate: aggregate,
-	}
+	return &Command{aggregate, id, command}
 }
 
 func (c *Command) Id() uuid.UUID {
-	return c.id
+	return c.CommandId
 }
 
 func (c *Command) Type() string {
-	return goes.MessageType(c.command)
+	return goes.MessageType(c.Command)
 }
 
 func (c *Command) Message() interface{} {
-	return c.command
+	return c.Command
 }
 
 func (c *Command) AggregateId() uuid.UUID {
-	return c.aggregate
+	return c.Aggregate
 }

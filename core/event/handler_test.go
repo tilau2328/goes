@@ -30,7 +30,7 @@ func TestChainedHandleEvent(t *testing.T) {
 		t.Error(err)
 	}
 	if handler.event != event {
-		t.Errorf("expected event to be %T but is %T", event, handler.event)
+		t.Errorf("expected Event to be %T but is %T", event, handler.event)
 	}
 	if result != ExpectedHandlerResult {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)

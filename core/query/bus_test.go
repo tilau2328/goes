@@ -33,7 +33,7 @@ func TestBus_RegisterHandler(t *testing.T) {
 		t.Error(err)
 	}
 	if handler.query != query {
-		t.Errorf("expected query to have be %T but was %T times", query, handler.query)
+		t.Errorf("expected Query to have be %T but was %T times", query, handler.query)
 	}
 	if result != ExpectedHandlerResult {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)

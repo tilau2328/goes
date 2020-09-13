@@ -30,7 +30,7 @@ func TestChainedHandleQuery(t *testing.T) {
 		t.Error(err)
 	}
 	if handler.query != query {
-		t.Errorf("expected query to be %T but is %T", query, handler.query)
+		t.Errorf("expected Query to be %T but is %T", query, handler.query)
 	}
 	if result != ExpectedHandlerResult {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)

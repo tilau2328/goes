@@ -13,31 +13,27 @@ type IEvent interface {
 }
 
 type Event struct {
-	aggregate uuid.UUID
-	id        uuid.UUID
-	event     interface{}
+	Aggregate uuid.UUID   `json:"aggregateId"`
+	EventId   uuid.UUID   `json:"eventId"`
+	Event     interface{} `json:"message"`
 }
 
 func NewEvent(id uuid.UUID, aggregateId uuid.UUID, event interface{}) *Event {
-	return &Event{
-		id:        id,
-		event:     event,
-		aggregate: aggregateId,
-	}
+	return &Event{aggregateId, id, event}
 }
 
 func (c *Event) Id() uuid.UUID {
-	return c.id
+	return c.EventId
 }
 
 func (c *Event) Type() string {
-	return goes.MessageType(c.event)
+	return goes.MessageType(c.Event)
 }
 
 func (c *Event) Message() interface{} {
-	return c.event
+	return c.Event
 }
 
 func (c *Event) AggregateId() uuid.UUID {
-	return c.aggregate
+	return c.Aggregate
 }

@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-type TestCommand struct { test string }
+type TestCommand struct{ test string }
 
 func TestNewCommand(t *testing.T) {
 	const expectedCommandType = "command.TestCommand"
@@ -21,12 +21,12 @@ func TestNewCommand(t *testing.T) {
 
 	id := result.Id()
 	if id != expectedId {
-		t.Errorf("expected id to be %s but is %s", expectedAggregateId, id)
+		t.Errorf("expected CommandId to be %s but is %s", expectedAggregateId, id)
 	}
 
 	commandType := result.Type()
 	if commandType != expectedCommandType {
-		t.Errorf("expected command type to be %s but is %s", expectedCommandType, commandType)
+		t.Errorf("expected Command type to be %s but is %s", expectedCommandType, commandType)
 	}
 
 	resultMessage := result.Message()

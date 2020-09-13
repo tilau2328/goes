@@ -36,6 +36,6 @@ func TestBus_RegisterHandler(t *testing.T) {
 		t.Errorf("expected result to be %s but was %s", ExpectedHandlerResult, result)
 	}
 	if handler.command != command {
-		t.Errorf("expected command to be %T but was %T times", command, handler.command)
+		t.Errorf("expected Command to be %T but was %T times", command, handler.command)
 	}
 }

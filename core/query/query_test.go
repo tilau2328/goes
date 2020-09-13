@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-type TestQuery struct { test string }
+type TestQuery struct{ test string }
 
 func TestNewQuery(t *testing.T) {
 	const expectedQueryType = "query.TestQuery"
@@ -21,12 +21,12 @@ func TestNewQuery(t *testing.T) {
 
 	id := result.Id()
 	if id != expectedId {
-		t.Errorf("expected id to be %s but is %s", expectedAggregateId, id)
+		t.Errorf("expected QueryId to be %s but is %s", expectedAggregateId, id)
 	}
 
 	queryType := result.Type()
 	if queryType != expectedQueryType {
-		t.Errorf("expected query type to be %s but is %s", expectedQueryType, queryType)
+		t.Errorf("expected Query type to be %s but is %s", expectedQueryType, queryType)
 	}
 
 	resultMessage := result.Message()

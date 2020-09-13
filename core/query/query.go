@@ -13,31 +13,27 @@ type IQuery interface {
 }
 
 type Query struct {
-	aggregate uuid.UUID
-	id        uuid.UUID
-	query     interface{}
+	Aggregate uuid.UUID   `json:"aggregateId"`
+	QueryId   uuid.UUID   `json:"queryId"`
+	Query     interface{} `json:"message"`
 }
 
 func NewQuery(id uuid.UUID, aggregate uuid.UUID, query interface{}) *Query {
-	return &Query{
-		id:        id,
-		query:     query,
-		aggregate: aggregate,
-	}
+	return &Query{aggregate, id, query}
 }
 
 func (c *Query) Id() uuid.UUID {
-	return c.id
+	return c.QueryId
 }
 
 func (c *Query) Type() string {
-	return goes.MessageType(c.query)
+	return goes.MessageType(c.Query)
 }
 
 func (c *Query) Message() interface{} {
-	return c.query
+	return c.Query
 }
 
 func (c *Query) AggregateId() uuid.UUID {
-	return c.aggregate
+	return c.Aggregate
 }
